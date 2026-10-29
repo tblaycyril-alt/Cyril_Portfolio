@@ -1,0 +1,13 @@
+function Artwork({file,caption}:{file:string;caption:string}) {
+ return <figure><a href={`/assets/chodalink/${file}`} target="_blank" rel="noreferrer" aria-label={`Enlarge: ${caption}`}><img loading="lazy" src={`/assets/chodalink/${file}`} alt={caption}/></a><figcaption>{caption} · Select to enlarge.</figcaption></figure>;
+}
+
+export default function ChodaLinkCaseStudy() {
+ return <div className="choda-case">
+  <p className="concept-note"><strong>Evidence status:</strong> Self-initiated UI design exploration. This project demonstrates interface design; formal user research, usability testing and measured product outcomes are not established.</p>
+  <section><p className="detail-kicker">01 / Overview</p><h3>A mobile grocery shopping exploration.</h3><p>ChodaLink is a grocery delivery interface design exploration. My role was User Interface Designer, with an emphasis on visual composition and mobile shopping interactions.</p><p><strong>Design focus:</strong> Product information, visual hierarchy and the core mobile shopping interaction, from browsing to cart and checkout.</p></section>
+  <section><p className="detail-kicker">02 / Visual direction</p><h3>A green and yellow visual direction.</h3><p>The visual system combines Poppins typography with green and yellow. The original presentation explores branding, product information and mobile interface composition.</p><Artwork file="page-7-4k.webp" caption="Original ChodaLink branding and mobile application mockups"/></section>
+  <section><p className="detail-kicker">03 / Shopping interactions</p><h3>Browsing, cart and checkout.</h3><p>The interface selection covers grocery browsing, product details, the shopping cart and payment. Delivery and pickup appear in the original flow.</p><Artwork file="page-11-4k.webp" caption="Grocery browsing and category interface details"/><Artwork file="page-10-4k.webp" caption="Mobile checkout and payment interface exploration"/></section>
+  <section><p className="detail-kicker">04 / Flow and next steps</p><h3>The original shopping flow.</h3><p>The flow brings together account access, home, product discovery, the shopping cart and payment. It is presented as a design artifact, with further usability evaluation still needed.</p><Artwork file="chodalink-user-flow.svg" caption="Original ChodaLink shopping user flow"/><h3>Next evaluation</h3><p>I would observe representative shoppers finding an item, updating the cart and completing the proposed checkout. Those sessions would help identify where the navigation or interaction sequence needs refinement.</p><p className="concept-note">Screens contain sample product and transaction data. No live deployment or measured user outcomes are claimed.</p></section>
+ </div>;
+}
