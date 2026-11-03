@@ -1,0 +1,9 @@
+.gloway-case figure a{display:block;cursor:zoom-in}
+.gloway-case img{height:auto}
+.gloway-case h4{font-size:20px;font-weight:500;margin:24px 0 10px}
+.gloway-case .merchant-brief,.gloway-case .merchant-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.gloway-case .payment-evidence{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.gloway-case .payment-evidence figure{margin:10px 0;min-width:0}
+.gloway-case .payment-evidence h4{font-size:18px}
+.gloway-case .merchant-detail figure{margin:24px 0}
+@media(max-width:650px){.gloway-case .merchant-brief,.gloway-case .merchant-detail,.gloway-case .payment-evidence{grid-template-columns:1fr}.gloway-case .payment-evidence figure{max-width:420px;width:100%;margin:10px auto}}
