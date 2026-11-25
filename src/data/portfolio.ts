@@ -7,6 +7,4 @@ export const gallery=[
  {title:'Masters Cuisine',type:'Logo · Food & beverage campaigns',image:'masters-cuisine/view-1',description:'Bringing a food brand’s identity and promotions together.'},
  {title:'GH Media Hub',type:'Brand applications · Campaigns · Print',image:'gh-media-hub/view-1',description:'A recognizable identity across media, print and promotion.'},
  {title:'RAMS SPICES',type:'Brand identity · Packaging',image:'rams-spices/view-1',description:'A spice range with a consistent visual identity across packaging and brand applications.'},
- {title:'Editorial expressions',type:'Graphic design',image:'posters',description:'Poster studies using typography, image treatment and expressive composition.'},
- {title:'Products & atmosphere',type:'3D visualization',image:'products',description:'Product, headphone and fragrance studies exploring light, materials and composition.'}
 ];
