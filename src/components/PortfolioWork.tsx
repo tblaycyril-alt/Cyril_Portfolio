@@ -7,19 +7,22 @@ import TocyNovaCaseStudy from './TocyNovaCaseStudy';
 import ChodaLinkCaseStudy from './ChodaLinkCaseStudy';
 import GlowayCaseStudy from './GlowayCaseStudy';
 import { projects, gallery } from '../data/portfolio';
+import { importedProjects, visualStudies, ImportedVisualStudy, originalArtwork, ghArtwork } from './ImportedVisualWork';
 import { smoother } from './Navbar';
 import './styles/Work.css';
 import './styles/Portfolio.css';
 
 type Item = typeof projects[number] | typeof gallery[number];
 type Preview = { src: string; alt: string };
-const items: Item[] = [...projects, ...gallery];
+const items: Item[] = [...projects, ...gallery, ...importedProjects];
 const titleOf = (p: Item) => 'name' in p ? p.name : p.title;
 const slugOf = (p: Item) => titleOf(p).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const hrefOf = (p: Item) => '/work/' + slugOf(p);
-const categoryOf = (p: Item) => 'name' in p ? 'Product design' : p.title === 'RAMS SPICES' ? 'Packaging' : 'Visual identity';
+const categoryOf = (p: Item) => 'name' in p ? 'Product design' : visualStudies.find(study=>study.title===p.title)?.filter || (p.title === 'RAMS SPICES' ? 'Packaging' : 'Visual identity');
+const coverFor = (p: Item) => titleOf(p)==='GH Media Hub' ? originalArtwork(ghArtwork[0][0]) : /^(https:\/\/|\/assets\/)/.test(p.image) ? p.image : '/assets/'+p.image+'.webp';
+const coverAlt = (p: Item) => 'name' in p ? p.alt : p.title==='GH Media Hub' ? ghArtwork[0][1] : visualStudies.find(study=>study.title===p.title)?.artworks[0][1] || p.description;
 const labelOf = (p: Item) => 'name' in p ? p.category : p.type;
-const order = ['Gloway', 'TocyNova', 'ChodaLink', 'RAMS SPICES', 'GH Media Hub', 'Masters Cuisine'];
+const order = ['Gloway', 'TocyNova', 'ChodaLink', 'RAMS SPICES', 'GH Media Hub', 'Masters Cuisine', 'AUDEXA', 'ROOTS & RHYTHM GH', 'A Little Light', 'Form & Fibre'];
 const sorted = [...items].sort((a,b) => (order.indexOf(titleOf(a)) < 0 ? 99 : order.indexOf(titleOf(a))) - (order.indexOf(titleOf(b)) < 0 ? 99 : order.indexOf(titleOf(b))));
 const more: Record<string, Preview[]> = {
  Gloway: [
@@ -37,11 +40,11 @@ const more: Record<string, Preview[]> = {
  ],
  'RAMS SPICES': [
   {src:'/assets/rams-spices/view-2.webp',alt:'Kebab spice packaging'},
-  {src:'/assets/rams-spices/view-3.webp',alt:'Raw ginger tin packaging'}
+  {src:'/assets/rams-spices/view-3.webp',alt:'Raw ginger tin packaging'},
+  {src:originalArtwork('rams-range.jpg'),alt:'Ginger with Garlic and Kebab Spice with Dawadawa'}
  ],
  'GH Media Hub': [
-  {src:'/assets/gh-media-hub/view-4.webp',alt:'Branded stationery'},
-  {src:'/assets/gh-media-hub/view-2.webp',alt:'Services brochure'}
+  ...ghArtwork.slice(1).map(([file,alt])=>({src:originalArtwork(file),alt}))
  ],
  'Masters Cuisine': [
   {src:'/assets/masters-cuisine/view-2.webp',alt:'Catering promotion'},
@@ -50,7 +53,8 @@ const more: Record<string, Preview[]> = {
 };
 function ProjectContent({item}: {item: Item}) {
  const isProject = 'name' in item;
- return <article><p className="detail-kicker">{isProject?item.category:item.type}</p><h2 id="project-heading">{isProject?item.name:item.title}</h2><p className="detail-lead">{isProject?item.title:item.description}</p>{isProject&&<div className="detail-facts"><span>{item.status}</span><span>{item.role}</span><span>{item.platform}</span></div>}{!(isProject && item.name==='Gloway')&&<img src={isProject && item.name==='TocyNova' ? '/assets/tocynova/tocynova-showcase.svg' : isProject && item.name==='ChodaLink' ? '/assets/chodalink/page-9-4k.webp' : `/assets/${item.image}.webp`} alt={isProject?item.alt:item.description}/>} {isProject?(item.name==='Gloway'?<GlowayCaseStudy/>:item.name==='TocyNova'?<TocyNovaCaseStudy/>:item.name==='ChodaLink'?<ChodaLinkCaseStudy/>:<><section><h3>The starting point</h3><p>{item.intro}</p><p>{item.problem}</p></section><section><h3>{item.decision}</h3><p>{item.rationale}</p><ol>{item.flow.map(step=><li key={step}>{step}</li>)}</ol></section>{item.images.map(([image,caption])=><figure key={image}><img loading="lazy" src={`/assets/${image}.webp`} alt={caption}/><figcaption>{caption}</figcaption></figure>)}<section><h3>Reflection & next steps</h3><p>{item.reflection}</p><p>{item.next}</p><p className="concept-note">{item.note}</p></section></>):item.title==='Masters Cuisine'?<MastersCuisineProject/>:item.title==='GH Media Hub'?<GhMediaHubProject/>:item.title==='RAMS SPICES'?<RamsSpicesProject/>:<p className="concept-note">Selected visual work. Mockups demonstrate design applications, not measured campaign outcomes.</p>}<a className="project-action" href={`mailto:tblay.cyril@gmail.com?subject=${encodeURIComponent('Let’s talk about '+(isProject?item.name:item.title))}`}>Discuss this project <MdArrowOutward/></a></article>;
+ const study = visualStudies.find(study=>study.title===titleOf(item));
+ return <article><p className="detail-kicker">{isProject?item.category:item.type}</p><h2 id="project-heading">{isProject?item.name:item.title}</h2><p className="detail-lead">{isProject?item.title:item.description}</p>{isProject&&<div className="detail-facts"><span>{item.status}</span><span>{item.role}</span><span>{item.platform}</span></div>}{!(isProject && item.name==='Gloway')&&<img src={isProject && item.name==='TocyNova' ? '/assets/tocynova/tocynova-showcase.svg' : isProject && item.name==='ChodaLink' ? '/assets/chodalink/page-9-4k.webp' : coverFor(item)} alt={coverAlt(item)}/>} {isProject?(item.name==='Gloway'?<GlowayCaseStudy/>:item.name==='TocyNova'?<TocyNovaCaseStudy/>:item.name==='ChodaLink'?<ChodaLinkCaseStudy/>:<><section><h3>The starting point</h3><p>{item.intro}</p><p>{item.problem}</p></section><section><h3>{item.decision}</h3><p>{item.rationale}</p><ol>{item.flow.map(step=><li key={step}>{step}</li>)}</ol></section>{item.images.map(([image,caption])=><figure key={image}><img loading="lazy" src={`/assets/${image}.webp`} alt={caption}/><figcaption>{caption}</figcaption></figure>)}<section><h3>Reflection & next steps</h3><p>{item.reflection}</p><p>{item.next}</p><p className="concept-note">{item.note}</p></section></>):item.title==='Masters Cuisine'?<MastersCuisineProject/>:item.title==='GH Media Hub'?<GhMediaHubProject/>:item.title==='RAMS SPICES'?<RamsSpicesProject/>:study?<ImportedVisualStudy study={study}/>:<p className="concept-note">Selected visual work. Mockups demonstrate design applications, not measured campaign outcomes.</p>}<a className="project-action" href={`mailto:tblay.cyril@gmail.com?subject=${encodeURIComponent('Let’s talk about '+(isProject?item.name:item.title))}`}>Discuss this project <MdArrowOutward/></a></article>;
 }
 
 function ProjectCard({item,index,paused}: {item:Item;index:number;paused:boolean}) {
@@ -58,7 +62,8 @@ function ProjectCard({item,index,paused}: {item:Item;index:number;paused:boolean
  const [visible,setVisible] = useState(false);
  const [interacting,setInteracting] = useState(false);
  const ref=useRef<HTMLElement>(null);
- const previews: Preview[] = [{src:'/assets/'+item.image+'.webp',alt:'name' in item ? item.alt : item.description},...(more[titleOf(item)] || [])];
+ const importedPreviews=visualStudies.find(study=>study.title===titleOf(item))?.artworks.slice(1).map(([file,alt])=>({src:originalArtwork(file),alt}));
+ const previews: Preview[] = [{src:coverFor(item),alt:coverAlt(item)},...(importedPreviews || more[titleOf(item)] || [])];
  const next=previews[(frame+1)%previews.length]?.src;
  useEffect(()=>{
   const node=ref.current;
@@ -109,8 +114,8 @@ export default function PortfolioWork(){
  },[]);
  const visible=sorted.filter(p=>filter==='All'||categoryOf(p)===filter);
  return <section className="work-section selected-work" id="work"><div className="work-container section-container">
-  <div className="selected-work-heading"><h2>Selected <span>work</span><sup>({String(sorted.length).padStart(2,'0')})</sup></h2><p>Product design, visual identities and communication systems.</p></div>
-  <div className="selected-work-controls"><div className="selected-filters" role="group" aria-label="Filter projects">{['All','Product design','Visual identity','Packaging'].map(f=><button key={f} type="button" data-cursor="disable" aria-pressed={filter===f} onClick={()=>setFilter(f)}>{f}</button>)}</div>{!reduced&&<button type="button" className="selected-preview-control" data-cursor="disable" onClick={()=>setPaused(p=>!p)}>{paused?'Play previews':'Pause previews'}</button>}</div>
+  <div className="selected-work-heading"><h2>Selected <span>work</span><sup>({String(sorted.length).padStart(2,'0')})</sup></h2><p>Product design, visual identities, campaigns and illustration.</p></div>
+  <div className="selected-work-controls"><div className="selected-filters" role="group" aria-label="Filter projects">{['All','Product design','Visual identity','Packaging','Campaigns','Illustration'].map(f=><button key={f} type="button" data-cursor="disable" aria-pressed={filter===f} onClick={()=>setFilter(f)}>{f}</button>)}</div>{!reduced&&<button type="button" className="selected-preview-control" data-cursor="disable" onClick={()=>setPaused(p=>!p)}>{paused?'Play previews':'Pause previews'}</button>}</div>
   <p className="selected-work-status" role="status">{filter==='All'?'Showing all ':'Showing '}{visible.length} {visible.length===1?'project':'projects'}</p>
   <div className="selected-project-grid">{visible.map(item=><ProjectCard key={titleOf(item)} item={item} index={sorted.indexOf(item)} paused={paused||reduced}/>)}</div>
  </div></section>;
