@@ -9,11 +9,13 @@ type VisualStudy = {
 export const visualStudies: VisualStudy[] = [
  {
   title: 'AUDEXA', type: 'Visual identity · Brand applications', filter: 'Visual identity',
-  description: 'An audio identity with a visual pulse.',
+  description: 'A visual identity for an audio device ordering platform.',
   heading: 'Sound becomes a visual signature.',
   rationale: [
-   'An expressive A symbol, sound bars and a distinctive wordmark establish the visual identity. The selected mockups explore the identity on audio products, an app icon and branded merchandise.',
-   'Lime accents, dark surfaces and flowing wave graphics connect the applications. The symbol works independently on speaker fabric, while the bottles use the wordmark and a repeating angular pattern. The cylindrical speaker uses the same lime symbol to maintain continuity across forms.'
+   'AUDEXA is a brand identity design for a platform intended to facilitate ordering audio devices. The design challenge is to express the character of sound and audio technology through a recognizable visual identity that can work across digital and physical applications.',
+   'An expressive A symbol, sound bars and a distinctive wordmark connect the brand name to its audio category. The selected mockups explore the identity on audio products, an app icon and branded merchandise. The standalone symbol provides a compact alternative to the full wordmark where space is limited.',
+   'Lime accents, dark surfaces and flowing wave graphics connect the applications. The contrast creates an energetic technology oriented visual character, while the recurring symbol and wave language provide continuity. The symbol works independently on speaker fabric, while the bottles use the wordmark and a repeating angular pattern. The cylindrical speaker uses the same lime symbol to maintain continuity across forms.',
+   'The artwork demonstrates brand adaptation from a compact digital icon to product surfaces and merchandise. The scope is visual identity and brand applications rather than the design or usability evaluation of the ordering platform. The mockups illustrate potential applications, not manufactured products or a launched service.'
   ],
   artworks: [
    ['audexa-logo.png','AUDEXA symbol, wordmark and app icon presentation'],
