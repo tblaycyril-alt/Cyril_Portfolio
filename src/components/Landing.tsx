@@ -28,8 +28,8 @@ const Landing = ({ children }: PropsWithChildren) => {
         </div>
         {children}
         <div className="landing-mobile-role">
-          <p>UX/UI &amp; Visual</p>
-          <h2>Creative Designer</h2>
+          <p>UX/UI Designer</p>
+          <h2>Visual Creative Designer</h2>
         </div>
       </div>
     </>
