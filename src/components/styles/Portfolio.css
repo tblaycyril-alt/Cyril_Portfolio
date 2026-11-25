@@ -176,7 +176,8 @@ body:has(.standalone-project){overflow-y:auto;overflow-x:hidden}
     align-items: center;
     justify-content: flex-start;
     gap: 0;
-    padding: 120px 0 32px;
+    padding: 110px 0 32px;
+    background: var(--backgroundColor);
     height: auto;
     min-height: 0;
     box-sizing: border-box;
@@ -199,7 +200,9 @@ body:has(.standalone-project){overflow-y:auto;overflow-x:hidden}
     position: relative;
     flex: 0 0 auto;
     width: 100%;
-    height: clamp(320px, 54svh, 480px);
+    height: clamp(290px, 46svh, 420px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 64%, rgba(0,0,0,.85) 76%, rgba(0,0,0,.35) 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 64%, rgba(0,0,0,.85) 76%, rgba(0,0,0,.35) 90%, transparent 100%);
     margin: 8px 0 0;
     overflow: hidden;
     isolation: isolate;
@@ -227,9 +230,12 @@ body:has(.standalone-project){overflow-y:auto;overflow-x:hidden}
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    flex: 0 0 auto;
+    opacity: 1;
+    visibility: visible;
     width: calc(100% - 32px);
-    margin: 20px auto 0;
+    margin: 12px auto 0;
     padding: 0 0 8px;
     z-index: 2;
     text-align: center;
@@ -244,7 +250,7 @@ body:has(.standalone-project){overflow-y:auto;overflow-x:hidden}
   }
   .landing-mobile-role h2 {
     margin: 0;
-    font-size: clamp(29px, 8vw, 46px);
+    font-size: clamp(26px, 7.2vw, 42px);
     font-weight: 600;
     line-height: 1.12;
     letter-spacing: .02em;
@@ -253,4 +259,10 @@ body:has(.standalone-project){overflow-y:auto;overflow-x:hidden}
     text-wrap: balance;
   }
   .container-main .landing-circle2 { display: none; }
+}
+
+@supports not ((mask-image: linear-gradient(black, transparent)) or (-webkit-mask-image: linear-gradient(black, transparent))) {
+  @media (max-width: 700px) {
+    .container-main .landing-section .character-container::after { content: ""; position: absolute; inset: auto 0 0; height: 36%; background: linear-gradient(to bottom, transparent, var(--backgroundColor)); z-index: 5; pointer-events: none; }
+  }
 }
