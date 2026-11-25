@@ -1,5 +1,6 @@
 const assetBase = 'https://tocy-studios-graphic-portfolio.tblay-cyrilgpt.chatgpt.site/assets/';
-export const originalArtwork = (file: string) => assetBase + file;
+import { cachedArtwork } from '../data/cachedArtwork';
+export const originalArtwork = (file: string) => cachedArtwork.includes(file) ? '/assets/imported-visual/'+file : assetBase + file;
 type Artwork = readonly [string, string];
 type VisualStudy = {
  title: string; type: string; filter: string; description: string; heading: string;
@@ -93,7 +94,7 @@ export function ImportedVisualStudy({study}: {study: VisualStudy}) {
  return <div className="imported-visual-study">
   <p className="detail-facts">Designer: Cyril · Tocy Studios</p>
   <section><h3>{study.heading}</h3>{study.rationale.map(p=><p key={p}>{p}</p>)}</section>
-  <section><h3>{study.filter==='Illustration'?'Development and finished work':'Selected artwork and applications'}</h3><OriginalArtwork artworks={study.artworks}/></section>
+  <section><h3>{study.filter==='Illustration'?'Development and finished work':'Selected artwork and applications'}</h3><OriginalArtwork artworks={study.artworks.slice(1)}/></section>
   <p className="concept-note">Selected visual work. Illustrations and mockup presentations document creative development and design applications; no measured campaign or product outcomes are claimed.</p>
  </div>;
 }
