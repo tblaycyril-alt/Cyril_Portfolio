@@ -30,8 +30,10 @@ export const visualStudies: VisualStudy[] = [
   description: 'A visual rhythm for an Afrohouse gathering.',
   heading: 'A system with room to move.',
   rationale: [
-   'The coordinated event campaign uses bold stacked lettering, earthy textures and a patterned frame. The same visual language carries across the announcement, artist lineup and media accreditation.',
-   'The announcement establishes the event name as the focal point. The lineup brings the performers forward, while the accreditation artwork adapts the same colours and framing to a different message.'
+   'The event organizers supplied the initial idea and colour direction for this Afrohouse gathering. My role was to interpret their brief, develop the visual concept and translate it into a coordinated campaign across multiple promotional formats.',
+   'Bold stacked lettering, earthy textures and a patterned frame give the campaign a distinctive visual rhythm. The repeated visual elements connect the event announcement, artist lineup and media accreditation, while allowing each composition to communicate its own message.',
+   'The announcement establishes the event name as the focal point. The lineup brings the performers forward, while the accreditation artwork adapts the same colours and framing to a different message. The central communication challenge was to balance a recognizable event identity with the different information needs of each promotional piece.',
+   'The selected artwork documents the development and application of the visual concept from the organizers’ brief. Original concept sketches and alternative compositions would further demonstrate the creative development process. Audience response and campaign performance are not measured here.'
   ],
   artworks: [
    ['roots-main.jpg','Main event announcement'],
